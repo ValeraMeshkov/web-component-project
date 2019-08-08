@@ -1,88 +1,93 @@
 <template>
-  <div class="photo">
-    <div class="photo__layers">
-      <Layers :image="imageFull"/>
-    </div>
+  <div>
+    <button class="upload__photo__button"
+            v-if="!uploadPhoto"
+            @click="uploadPhoto = true"
+    >Добавить фото</button>
+    <div v-else class="photo">
+      <div class="photo__layers">
+        <Layers :image="imageFull"/>
+      </div>
 
-    <div class="photo__buttons">
-      <Button :hasImg="img"
-              imgName="img"
-              name="фото"
-              @getImage="getImage"
-              @deleteImage="deleteImage"
-      />
-      <Button :hasImg="bgImage"
-              imgName="bgImage"
-              name="фон"
-              text="text"
-              @getImage="getImage"
-              @deleteImage="deleteImage"
-      />
-    </div>
+      <div class="photo__buttons">
+        <Button :hasImg="img"
+                imgName="img"
+                name="фото"
+                @getImage="getImage"
+                @deleteImage="deleteImage"
+        />
+        <Button :hasImg="bgImage"
+                imgName="bgImage"
+                name="фон"
+                text="text"
+                @getImage="getImage"
+                @deleteImage="deleteImage"
+        />
+      </div>
 
-    <div class="photo__filters">
-      <h4>{{img ? 'Фильтры картинки' : 'Добавьте фото!!!'}} </h4>
-      <ul v-if="img" class="photo__filters__image">
-        <li v-for="filter in imageFilters">
-           <span>{{filter.name}}</span>
-           <FilterItem type="range"
-                       name="filter"
-                       :values="filter"
-                       :initialValue="imageFull.filter[filter.value]"
-                       @updateValue="updateValue"
-          />
-        </li>
-      </ul>
-
-      <h4 v-if="img">Перемещение картинки</h4>
-      <ul v-if="img" class="photo__filters__image move">
-        <li v-for="filter in moveFilters">
-          <span>{{filter.name}}</span>
-          <div>
+      <div class="photo__filters">
+        <h4>{{img ? 'Фильтры картинки' : 'Добавьте фото!!!'}} </h4>
+        <ul v-if="img" class="photo__filters__image">
+          <li v-for="filter in imageFilters">
+            <span>{{filter.name}}</span>
             <FilterItem type="range"
-                        name="move"
+                        name="filter"
                         :values="filter"
-                        :initialValue="imageFull.move[filter.value]"
+                        :initialValue="imageFull.filter[filter.value]"
                         @updateValue="updateValue"
             />
-            <FilterItem class="move__item"
-                        type="number"
-                        name="move"
+          </li>
+        </ul>
+
+        <h4 v-if="img">Перемещение картинки</h4>
+        <ul v-if="img" class="photo__filters__image move">
+          <li v-for="filter in moveFilters">
+            <span>{{filter.name}}</span>
+            <div>
+              <FilterItem type="range"
+                          name="move"
+                          :values="filter"
+                          :initialValue="imageFull.move[filter.value]"
+                          @updateValue="updateValue"
+              />
+              <FilterItem class="move__item"
+                          type="number"
+                          name="move"
+                          :values="filter"
+                          :initialValue="imageFull.move[filter.value]"
+                          @updateValue="updateValue"
+              />
+            </div>
+          </li>
+        </ul>
+
+        <h4>Изменить цвет фона</h4>
+        <ul class="photo__filters__image">
+
+          <li class="color">
+            <span>Цвет фона</span>
+            <input type="color"
+                   v-model="imageFull.bgColor"
+                   @change="addBgColor($event)"
+                   :style="{backgroundColor: imageFull.bgColor}"
+            >
+          </li>
+        </ul>
+
+        <h4>Изменить тень</h4>
+        <ul class="photo__filters__image">
+          <li v-for="filter in shadowFilters">
+            <span>{{filter.name}}</span>
+            <FilterItem type="range"
+                        name="shadow"
                         :values="filter"
-                        :initialValue="imageFull.move[filter.value]"
+                        :initialValue="imageFull.shadow[filter.value]"
                         @updateValue="updateValue"
             />
-          </div>
-        </li>
-      </ul>
-
-      <h4>Изменить цвет фона</h4>
-      <ul class="photo__filters__image">
-
-        <li class="color">
-          <span>Цвет фона</span>
-          <input type="color"
-                 v-model="imageFull.bgColor"
-                 @change="addBgColor($event)"
-                 :style="{backgroundColor: imageFull.bgColor}"
-          >
-        </li>
-      </ul>
-
-      <h4>Изменить тень</h4>
-      <ul class="photo__filters__image">
-        <li v-for="filter in shadowFilters">
-          <span>{{filter.name}}</span>
-          <FilterItem type="range"
-                      name="shadow"
-                      :values="filter"
-                      :initialValue="imageFull.shadow[filter.value]"
-                      @updateValue="updateValue"
-          />
-        </li>
-      </ul>
-
-      <button v-if="img" class="photo__filters__save" @click="saveImage">Сохранить картинку</button>
+          </li>
+        </ul>
+        <button v-if="img" class="photo__filters__save" @click="saveImage">Сохранить картинку</button>
+      </div>
     </div>
   </div>
 </template>
@@ -124,6 +129,7 @@
     },
     data() {
       return {
+        uploadPhoto: false,
         img: false,
         bgImage: false,
         imageFull: JSON.parse(JSON.stringify(defaultImageSettings)),
@@ -153,6 +159,7 @@
       },
       clearImageFull(){
         this.img = this.bgImage = false;
+        this.uploadPhoto = false;
         this.imageFull = JSON.parse(JSON.stringify(defaultImageSettings));
       },
       getFilterObj(name, value, min, max, step) {
@@ -181,6 +188,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .upload__photo__button {
+    border: 2px solid #21fb92;
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+  }
+
   .photo {
     width: 100%;
     min-width: 300px;
@@ -188,10 +205,15 @@
     min-height: 400px;
     max-height: 600px;
     height: 100%;
-    position: relative;
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
     border-radius: 5px;
     border: 1px solid silver;
     overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
 
     &__layers {
       width: 100%;

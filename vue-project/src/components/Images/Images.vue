@@ -21,9 +21,10 @@
           }">
        </div>
       </div>
+
+      <photo-upload @postImage="postImages" class="images__photo"></photo-upload>
     </div>
-    <photo-upload @postImage="postImages" class="images__photo"></photo-upload>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -60,20 +61,18 @@
   .images {
     margin: 70px 30px 100px;
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 100%;
 
     &__items {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 2vw;
+      max-width: 1200px;
+      margin: 0 auto;
 
       &__image {
-        min-width: 200px;
-        width: 200px;
         min-height: 200px;
-        height: 200px;
+        height: 250px;
         background-size: cover;
         border: 1px solid silver;
         position: relative;
@@ -107,14 +106,34 @@
     &__photo {
       display: flex;
       justify-content: center;
+      align-items: center;
       margin: 10px;
     }
   }
 
-  @media screen and (max-width: 630px) {
+  @media screen and (max-width: 900px) {
     .images {
-      grid-template-rows: 1fr auto;
-      grid-template-columns: 100%;
+      &__items {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+
+        &__image {
+          height: 230px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .images {
+      &__items {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+
+        &__image {
+          height: 220px;
+        }
+      }
     }
   }
 </style>

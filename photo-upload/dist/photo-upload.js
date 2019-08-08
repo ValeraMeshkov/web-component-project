@@ -155,13 +155,20 @@ module.exports = function (fn, that, length) {
 
 /***/ }),
 
-/***/ "0d98":
+/***/ "10dd":
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__("24fb")(false);
-// Module
-exports.push([module.i, ".photo[data-v-b84872bc]{min-width:300px;max-width:320px;min-height:400px;max-height:600px;height:100%;border-radius:5px;border:1px solid silver}.photo[data-v-b84872bc],.photo__layers[data-v-b84872bc]{width:100%;position:relative;overflow:hidden}.photo__layers[data-v-b84872bc]{min-height:200px;max-height:400px;height:16em;justify-content:center}.photo__buttons[data-v-b84872bc],.photo__layers[data-v-b84872bc]{display:flex;align-items:center}.photo__buttons[data-v-b84872bc]{height:3em;padding:5px;box-sizing:border-box;justify-content:space-around}.photo__filters[data-v-b84872bc]{position:relative;height:40em;max-height:300px;overflow-y:scroll;margin:0;font-family:Comic Sans MS;text-align:center;padding:0}.photo__filters__image[data-v-b84872bc]{padding:0 15px;margin:0}.photo__filters__image li[data-v-b84872bc]{display:flex;padding:0;justify-content:space-between;align-items:center}.photo__filters__image .color>input[data-v-b84872bc]{margin-right:-2px;width:120px;height:20px;padding:5px 60px 6px;border:2px solid #21fb92;cursor:pointer;box-sizing:border-box;border-radius:20px}.photo__filters h4[data-v-b84872bc]{margin:10px auto 5px}.photo__filters .move li[data-v-b84872bc]{display:flex;flex-direction:column}.photo__filters .move li div[data-v-b84872bc]{display:flex;justify-content:space-between;width:100%}.photo__filters .move li div div[data-v-b84872bc]{width:auto}.photo__filters__save[data-v-b84872bc]{background-color:#fff;border:1px solid silver;margin:10px 10px 10px;height:30px;width:60%;border-radius:10px}", ""]);
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
+// load the styles
+var content = __webpack_require__("54e5");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to Shadow Root
+var add = __webpack_require__("cab7").default
+module.exports.__inject__ = function (shadowRoot) {
+  add("4408abe6", content, shadowRoot)
+};
 
 /***/ }),
 
@@ -743,12 +750,12 @@ function normalizeComponent (
   }
 }
 
-// CONCATENATED MODULE: C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"c7f5e338-vue-loader-template"}!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js??ref--0-0!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib??vue-loader-options!./photo-upload.vue?vue&type=template&id=b84872bc&scoped=true&shadow
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"photo"},[_c('div',{staticClass:"photo__layers"},[_c('Layers',{attrs:{"image":_vm.imageFull}})],1),_c('div',{staticClass:"photo__buttons"},[_c('Button',{attrs:{"hasImg":_vm.img,"imgName":"img","name":"фото"},on:{"getImage":_vm.getImage,"deleteImage":_vm.deleteImage}}),_c('Button',{attrs:{"hasImg":_vm.bgImage,"imgName":"bgImage","name":"фон","text":"text"},on:{"getImage":_vm.getImage,"deleteImage":_vm.deleteImage}})],1),_c('div',{staticClass:"photo__filters"},[_c('h4',[_vm._v(_vm._s(_vm.img ? 'Фильтры картинки' : 'Добавьте фото!!!')+" ")]),(_vm.img)?_c('ul',{staticClass:"photo__filters__image"},_vm._l((_vm.imageFilters),function(filter){return _c('li',[_c('span',[_vm._v(_vm._s(filter.name))]),_c('FilterItem',{attrs:{"type":"range","name":"filter","values":filter,"initialValue":_vm.imageFull.filter[filter.value]},on:{"updateValue":_vm.updateValue}})],1)}),0):_vm._e(),(_vm.img)?_c('h4',[_vm._v("Перемещение картинки")]):_vm._e(),(_vm.img)?_c('ul',{staticClass:"photo__filters__image move"},_vm._l((_vm.moveFilters),function(filter){return _c('li',[_c('span',[_vm._v(_vm._s(filter.name))]),_c('div',[_c('FilterItem',{attrs:{"type":"range","name":"move","values":filter,"initialValue":_vm.imageFull.move[filter.value]},on:{"updateValue":_vm.updateValue}}),_c('FilterItem',{staticClass:"move__item",attrs:{"type":"number","name":"move","values":filter,"initialValue":_vm.imageFull.move[filter.value]},on:{"updateValue":_vm.updateValue}})],1)])}),0):_vm._e(),_c('h4',[_vm._v("Изменить цвет фона")]),_c('ul',{staticClass:"photo__filters__image"},[_c('li',{staticClass:"color"},[_c('span',[_vm._v("Цвет фона")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.imageFull.bgColor),expression:"imageFull.bgColor"}],style:({backgroundColor: _vm.imageFull.bgColor}),attrs:{"type":"color"},domProps:{"value":(_vm.imageFull.bgColor)},on:{"change":function($event){return _vm.addBgColor($event)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.imageFull, "bgColor", $event.target.value)}}})])]),_c('h4',[_vm._v("Изменить тень")]),_c('ul',{staticClass:"photo__filters__image"},_vm._l((_vm.shadowFilters),function(filter){return _c('li',[_c('span',[_vm._v(_vm._s(filter.name))]),_c('FilterItem',{attrs:{"type":"range","name":"shadow","values":filter,"initialValue":_vm.imageFull.shadow[filter.value]},on:{"updateValue":_vm.updateValue}})],1)}),0),(_vm.img)?_c('button',{staticClass:"photo__filters__save",on:{"click":_vm.saveImage}},[_vm._v("Сохранить картинку")]):_vm._e()])])}
+// CONCATENATED MODULE: C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"c7f5e338-vue-loader-template"}!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js??ref--0-0!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib??vue-loader-options!./photo-upload.vue?vue&type=template&id=2346b696&scoped=true&shadow
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(!_vm.uploadPhoto)?_c('button',{staticClass:"upload__photo__button",on:{"click":function($event){_vm.uploadPhoto = true}}},[_vm._v("Добавить фото")]):_c('div',{staticClass:"photo"},[_c('div',{staticClass:"photo__layers"},[_c('Layers',{attrs:{"image":_vm.imageFull}})],1),_c('div',{staticClass:"photo__buttons"},[_c('Button',{attrs:{"hasImg":_vm.img,"imgName":"img","name":"фото"},on:{"getImage":_vm.getImage,"deleteImage":_vm.deleteImage}}),_c('Button',{attrs:{"hasImg":_vm.bgImage,"imgName":"bgImage","name":"фон","text":"text"},on:{"getImage":_vm.getImage,"deleteImage":_vm.deleteImage}})],1),_c('div',{staticClass:"photo__filters"},[_c('h4',[_vm._v(_vm._s(_vm.img ? 'Фильтры картинки' : 'Добавьте фото!!!')+" ")]),(_vm.img)?_c('ul',{staticClass:"photo__filters__image"},_vm._l((_vm.imageFilters),function(filter){return _c('li',[_c('span',[_vm._v(_vm._s(filter.name))]),_c('FilterItem',{attrs:{"type":"range","name":"filter","values":filter,"initialValue":_vm.imageFull.filter[filter.value]},on:{"updateValue":_vm.updateValue}})],1)}),0):_vm._e(),(_vm.img)?_c('h4',[_vm._v("Перемещение картинки")]):_vm._e(),(_vm.img)?_c('ul',{staticClass:"photo__filters__image move"},_vm._l((_vm.moveFilters),function(filter){return _c('li',[_c('span',[_vm._v(_vm._s(filter.name))]),_c('div',[_c('FilterItem',{attrs:{"type":"range","name":"move","values":filter,"initialValue":_vm.imageFull.move[filter.value]},on:{"updateValue":_vm.updateValue}}),_c('FilterItem',{staticClass:"move__item",attrs:{"type":"number","name":"move","values":filter,"initialValue":_vm.imageFull.move[filter.value]},on:{"updateValue":_vm.updateValue}})],1)])}),0):_vm._e(),_c('h4',[_vm._v("Изменить цвет фона")]),_c('ul',{staticClass:"photo__filters__image"},[_c('li',{staticClass:"color"},[_c('span',[_vm._v("Цвет фона")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.imageFull.bgColor),expression:"imageFull.bgColor"}],style:({backgroundColor: _vm.imageFull.bgColor}),attrs:{"type":"color"},domProps:{"value":(_vm.imageFull.bgColor)},on:{"change":function($event){return _vm.addBgColor($event)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.imageFull, "bgColor", $event.target.value)}}})])]),_c('h4',[_vm._v("Изменить тень")]),_c('ul',{staticClass:"photo__filters__image"},_vm._l((_vm.shadowFilters),function(filter){return _c('li',[_c('span',[_vm._v(_vm._s(filter.name))]),_c('FilterItem',{attrs:{"type":"range","name":"shadow","values":filter,"initialValue":_vm.imageFull.shadow[filter.value]},on:{"updateValue":_vm.updateValue}})],1)}),0),(_vm.img)?_c('button',{staticClass:"photo__filters__save",on:{"click":_vm.saveImage}},[_vm._v("Сохранить картинку")]):_vm._e()])])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./photo-upload.vue?vue&type=template&id=b84872bc&scoped=true&shadow
+// CONCATENATED MODULE: ./photo-upload.vue?vue&type=template&id=2346b696&scoped=true&shadow
 
 // CONCATENATED MODULE: C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"c7f5e338-vue-loader-template"}!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/cache-loader/dist/cjs.js??ref--0-0!C:/Users/Admin/AppData/Roaming/npm/node_modules/@vue/cli-service-global/node_modules/vue-loader/lib??vue-loader-options!./components/Layers/Layers.vue?vue&type=template&id=64753fe0&scoped=true&
 var Layersvue_type_template_id_64753fe0_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"photo__layers",style:({boxShadow: _vm.shadowLayers})},[(_vm.image.bgImage)?_c('div',{staticClass:"photo__layers__bgImage",style:({backgroundImage: ("url(" + (_vm.image.bgImage) + ")")})}):_c('div',{staticClass:"photo__layers__bgColor",style:({backgroundColor: _vm.image.bgColor})}),_c('div',{staticClass:"photo__layers__image",style:({
@@ -1081,6 +1088,11 @@ var Filter_component = normalizeComponent(
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1116,6 +1128,7 @@ var defaultImageSettings = {
 
   data() {
     return {
+      uploadPhoto: false,
       img: false,
       bgImage: false,
       imageFull: JSON.parse(JSON.stringify(defaultImageSettings)),
@@ -1154,6 +1167,7 @@ var defaultImageSettings = {
 
     clearImageFull() {
       this.img = this.bgImage = false;
+      this.uploadPhoto = false;
       this.imageFull = JSON.parse(JSON.stringify(defaultImageSettings));
     },
 
@@ -1184,7 +1198,7 @@ var defaultImageSettings = {
 
 function photo_uploadshadow_injectStyles (context) {
   
-  var style0 = __webpack_require__("4986")
+  var style0 = __webpack_require__("3163")
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1197,7 +1211,7 @@ var photo_uploadshadow_component = normalizeComponent(
   staticRenderFns,
   false,
   photo_uploadshadow_injectStyles,
-  "b84872bc",
+  "2346b696",
   null
   ,true
 )
@@ -1236,6 +1250,18 @@ module.exports = function (Constructor, NAME, next) {
   setToStringTag(Constructor, NAME + ' Iterator');
 };
 
+
+/***/ }),
+
+/***/ "3163":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_2346b696_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("10dd");
+/* harmony import */ var _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_2346b696_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_2346b696_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_2346b696_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_2346b696_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_2346b696_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -1348,18 +1374,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "4986":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_b84872bc_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("9bf0");
-/* harmony import */ var _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_b84872bc_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_b84872bc_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_b84872bc_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_b84872bc_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_loaders_stylePostLoader_js_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_lib_loader_js_ref_8_oneOf_1_3_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_cache_loader_dist_cjs_js_ref_0_0_AppData_Roaming_npm_node_modules_vue_cli_service_global_node_modules_vue_loader_lib_index_js_vue_loader_options_photo_upload_vue_vue_type_style_index_0_id_b84872bc_lang_scss_scoped_true_shadow__WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
 /***/ "4aca":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1393,6 +1407,16 @@ var TAG = __webpack_require__("7ac9")('toStringTag');
 module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
 };
+
+
+/***/ }),
+
+/***/ "54e5":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("24fb")(false);
+// Module
+exports.push([module.i, ".upload__photo__button[data-v-2346b696]{border:2px solid #21fb92;width:100px;height:100px;background-color:#fff;border-radius:10px;margin:10px;cursor:pointer}.photo[data-v-2346b696]{min-width:300px;max-width:320px;min-height:400px;max-height:600px;height:100%;top:50%;left:50%;position:fixed;transform:translate(-50%,-50%);border-radius:5px;border:1px solid silver;background:#fff;box-shadow:0 0 60px rgba(0,0,0,.5)}.photo[data-v-2346b696],.photo__layers[data-v-2346b696]{width:100%;overflow:hidden}.photo__layers[data-v-2346b696]{min-height:200px;max-height:400px;height:16em;position:relative;justify-content:center}.photo__buttons[data-v-2346b696],.photo__layers[data-v-2346b696]{display:flex;align-items:center}.photo__buttons[data-v-2346b696]{height:3em;padding:5px;box-sizing:border-box;justify-content:space-around}.photo__filters[data-v-2346b696]{position:relative;height:40em;max-height:300px;overflow-y:scroll;margin:0;font-family:Comic Sans MS;text-align:center;padding:0}.photo__filters__image[data-v-2346b696]{padding:0 15px;margin:0}.photo__filters__image li[data-v-2346b696]{display:flex;padding:0;justify-content:space-between;align-items:center}.photo__filters__image .color>input[data-v-2346b696]{margin-right:-2px;width:120px;height:20px;padding:5px 60px 6px;border:2px solid #21fb92;cursor:pointer;box-sizing:border-box;border-radius:20px}.photo__filters h4[data-v-2346b696]{margin:10px auto 5px}.photo__filters .move li[data-v-2346b696]{display:flex;flex-direction:column}.photo__filters .move li div[data-v-2346b696]{display:flex;justify-content:space-between;width:100%}.photo__filters .move li div div[data-v-2346b696]{width:auto}.photo__filters__save[data-v-2346b696]{background-color:#fff;border:1px solid silver;margin:10px 10px 10px;height:30px;width:60%;border-radius:10px}", ""]);
 
 
 /***/ }),
@@ -1676,23 +1700,6 @@ module.exports = !__webpack_require__("6f53")(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
-
-/***/ }),
-
-/***/ "9bf0":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("0d98");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to Shadow Root
-var add = __webpack_require__("cab7").default
-module.exports.__inject__ = function (shadowRoot) {
-  add("8fbc45b0", content, shadowRoot)
-};
 
 /***/ }),
 
