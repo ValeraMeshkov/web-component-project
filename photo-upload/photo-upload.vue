@@ -152,6 +152,7 @@
         this.clearImageFull();
       },
       clearImageFull(){
+        this.img = this.bgImage = false;
         this.imageFull = JSON.parse(JSON.stringify(defaultImageSettings));
       },
       getFilterObj(name, value, min, max, step) {
