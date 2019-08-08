@@ -1,0 +1,117 @@
+<template>
+  <div class="images">
+    <div class="images__items">
+      <div v-for="image in images"
+           :key="image.id"
+           class="images__items__image"
+           :style="{ boxShadow: shadowLayers(image) }"
+      >
+        <div v-if="image.bgImage" class="bgImage" :style="{backgroundImage: `url(${image.bgImage})`}"></div>
+        <div v-else class="bgColor" :style="{backgroundColor: image.bgColor}"></div>
+
+        <div class="image" :style="{
+            backgroundImage: `url(${image.img})`,
+            opacity: image.filter.opacity,
+            filter: `
+             blur(${image.filter.blur}px)
+             contrast(${image.filter.contrast})
+             brightness(${image.filter.brightness})
+             saturate(${image.filter.saturate})
+             `,
+          }">
+       </div>
+      </div>
+    </div>
+    <photo-upload @postImage="postImages" class="images__photo"></photo-upload>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Images',
+    data() {
+      return {
+        images: [],
+        imagesURL: 'http://localhost:3000/images',
+      }
+    },
+    methods: {
+      getImages(){
+        this.$http.get(this.imagesURL)
+          .then(response => response.json())
+          .then(images => {this.images = images})
+          .catch(error => console.log(error));
+      },
+      postImages(value){
+        this.$http.post(this.imagesURL, value.detail[0]);
+        this.images.push(value.detail[0]);
+      },
+      shadowLayers(image) {
+        return `inset 0px 0px ${image.shadow.height}px rgba(0,0,0,${image.shadow.opacity})`;
+      }
+    },
+    mounted(){
+      this.getImages();
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .images {
+    margin: 70px 30px 100px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 100%;
+
+    &__items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      &__image {
+        min-width: 200px;
+        width: 200px;
+        min-height: 200px;
+        height: 200px;
+        background-size: cover;
+        border: 1px solid silver;
+        position: relative;
+        border-radius: 5px;
+        margin: 10px;
+        overflow: hidden;
+
+        .bgColor, .bgImage {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          z-index: -1;
+        }
+
+        .image {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          z-index: -1;
+        }
+      }
+    }
+
+    &__photo {
+      display: flex;
+      justify-content: center;
+      margin: 10px;
+    }
+  }
+
+  @media screen and (max-width: 630px) {
+    .images {
+      grid-template-rows: 1fr auto;
+      grid-template-columns: 100%;
+    }
+  }
+</style>

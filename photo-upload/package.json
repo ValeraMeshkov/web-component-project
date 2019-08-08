@@ -1,0 +1,20 @@
+{
+  "name": "photo-upload",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/photo-upload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "vue serve photo-upload.vue",
+    "build": "vue build --target wc photo-upload.vue"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "css-loader": "^3.2.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "vue": "^2.6.10"
+  }
+}
