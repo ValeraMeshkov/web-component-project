@@ -8,14 +8,17 @@
 # install dependencies
 npm install
 
+# install global dependencies
+npm install -g @vue/cli
+npm install -g @vue/cli-service-global
 
 ## To start the project with hot reload:
-    # run the command: npm start
+    # npm start
     # open the project at localhost:8080
 
 
 ## To build the project:
-    # run the command: npm run build
+    # npm run build
 
 
 
