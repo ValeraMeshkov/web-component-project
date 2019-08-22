@@ -1,30 +1,17 @@
 <template>
   <div class="images">
     <div class="images__items">
-      <div v-for="image in images"
-           :key="image.id"
+      <div v-for="image in webComponents"
            class="images__items__image"
-           :style="{ boxShadow: shadowLayers(image) }"
       >
-        <div v-if="image.bgImage" class="bgImage" :style="{backgroundImage: `url(${image.bgImage})`}"></div>
-        <div v-else class="bgColor" :style="{backgroundColor: image.bgColor}"></div>
-
-        <div class="image" :style="{
-            backgroundImage: `url(${image.img})`,
-            opacity: image.filter.opacity,
-            filter: `
-             blur(${image.filter.blur}px)
-             contrast(${image.filter.contrast})
-             brightness(${image.filter.brightness})
-             saturate(${image.filter.saturate})
-             `,
-          }">
-       </div>
+        <photo-upload :image="JSON.stringify(image)"
+                      @post="postImages"
+                      @delete="deleteImage"
+                      class="images__photo"
+        ></photo-upload>
       </div>
-
-      <photo-upload @postImage="postImages" class="images__photo"></photo-upload>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -32,7 +19,7 @@
     name: 'Images',
     data() {
       return {
-        images: [],
+        webComponents: [],
         imagesURL: 'http://localhost:3000/images',
       }
     },
@@ -40,15 +27,41 @@
       getImages(){
         this.$http.get(this.imagesURL)
           .then(response => response.json())
-          .then(images => {this.images = images})
+          .then(images => {
+            //this.webComponents = [];
+            if (images.length) {
+              this.$nextTick(() => {
+                this.webComponents = images;
+                this.webComponents.push({});
+              })
+            } else {
+              this.webComponents = [{}]
+            }
+          })
           .catch(error => console.log(error));
       },
       postImages(value){
-        this.$http.post(this.imagesURL, value.detail[0]);
-        this.images.push(value.detail[0]);
+        if (!this.searchWebComponentsId(value)){
+          this.$http.post(this.imagesURL, value.detail[0])
+            .then(this.getImages)
+            .catch(error=> console.log(error))
+        } else {
+          this.$http.put(`${this.imagesURL}/${value.detail[0].id}`, value.detail[0])
+            .then(this.getImages)
+            .catch(error=> console.log(error))
+        }
       },
-      shadowLayers(image) {
-        return `inset 0px 0px ${image.shadow.height}px rgba(0,0,0,${image.shadow.opacity})`;
+      searchWebComponentsId(value) {
+        return this.webComponents.some(obj => obj.id === value.detail[0].id);
+      },
+      deleteImage(value){
+        this.webComponents.forEach((obj,index) => {
+          if (obj.id === value.detail[0]){
+            this.$http.delete(`${this.imagesURL}/${obj.id}`)
+              .then(this.getImages)
+              .catch(error => console.log(error));
+          }
+        })
       }
     },
     mounted(){
@@ -69,12 +82,12 @@
       grid-gap: 2vw;
       max-width: 1200px;
       margin: 0 auto;
+      cursor: pointer;
 
       &__image {
         min-height: 200px;
         height: 250px;
         background-size: cover;
-        border: 1px solid silver;
         position: relative;
         border-radius: 5px;
         margin: 10px;
@@ -107,7 +120,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 10px;
+      height: 100%;
+      position: relative;
     }
   }
 

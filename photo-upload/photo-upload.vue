@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="upload__photo">
     <button class="upload__photo__button"
             v-if="!uploadPhoto"
-            @click="uploadPhoto = true"
-    >Добавить фото</button>
-    <div v-else class="photo">
+            @click="clickUploadPhoto"
+    >Добавить фотo</button>
+
+    <div v-if="uploadPhoto && !showReadyImg" class="upload__photo__wrapper">
+      <div class="photo">
+      <ButtonClose class="close" @closePhotoUpload="closePhotoUpload"/>
+
       <div class="photo__layers">
         <Layers :image="imageFull"/>
       </div>
@@ -28,7 +32,7 @@
       <div class="photo__filters">
         <h4>{{img ? 'Фильтры картинки' : 'Добавьте фото!!!'}} </h4>
         <ul v-if="img" class="photo__filters__image">
-          <li v-for="filter in imageFilters">
+          <li v-for="filter in imageFilters" :key="filter.id">
             <span>{{filter.name}}</span>
             <FilterItem type="range"
                         name="filter"
@@ -41,7 +45,7 @@
 
         <h4 v-if="img">Перемещение картинки</h4>
         <ul v-if="img" class="photo__filters__image move">
-          <li v-for="filter in moveFilters">
+          <li v-for="filter in moveFilters" :key="filter.id">
             <span>{{filter.name}}</span>
             <div>
               <FilterItem type="range"
@@ -76,7 +80,7 @@
 
         <h4>Изменить тень</h4>
         <ul class="photo__filters__image">
-          <li v-for="filter in shadowFilters">
+          <li v-for="filter in shadowFilters" :key="filter.id">
             <span>{{filter.name}}</span>
             <FilterItem type="range"
                         name="shadow"
@@ -86,15 +90,24 @@
             />
           </li>
         </ul>
-        <button v-if="img" class="photo__filters__save" @click="saveImage">Сохранить картинку</button>
+        <button v-if="img"
+                class="photo__filters__save"
+                @click="saveImage(imageFull.id)"
+        >Сохранить картинку</button>
       </div>
+    </div>
+    </div>
+    <div v-if="showReadyImg" class="image">
+      <ImageItem :img="imageFull" @editImage="editImage" @deleteImage="deleteImageItem"/>
     </div>
   </div>
 </template>
 
 <script>
+  import ImageItem from './components/ImageItem/ImageItem';
   import Layers from './components/Layers/Layers';
   import Button from './components/Button/Button';
+  import ButtonClose from './components/ButtonClose/ButtonClose';
   import FilterItem from './components/Filter/Filter';
 
   const defaultImageSettings = {
@@ -115,16 +128,24 @@
       sizeImg: 100
     },
     move: {
-      positionX: 0,
-      positionY: 0
+      positionX: 50,
+      positionY: 50
     }
   };
 
   export default {
     name: 'NewImage',
+    props: {
+      image: {
+        type: String,
+        default: JSON.stringify({})
+      },
+    },
     components: {
+      ImageItem,
       Layers,
       Button,
+      ButtonClose,
       FilterItem
     },
     data() {
@@ -133,6 +154,7 @@
         img: false,
         bgImage: false,
         imageFull: JSON.parse(JSON.stringify(defaultImageSettings)),
+        showReadyImg: false,
         imageFilters: [],
         moveFilters: [],
         shadowFilters: []
@@ -149,22 +171,60 @@
         this.imageFull[value.imgName] = value.img;
         this[value.imgName] = true;
       },
-      deleteImage(value){
+      deleteImage(value) {
         this.imageFull[value] = '';
         this[value] = false;
       },
-      saveImage() {
-        this.$emit('postImage', this.imageFull);
+      deleteImageItem(){
+        this.$emit('delete', this.imageFull.id);
         this.clearImageFull();
+      },
+      clickUploadPhoto(){
+        this.imageFull = this.imageFull.id
+          ? this.imageFull
+          : JSON.parse(JSON.stringify(defaultImageSettings));
+        this.uploadPhoto = true;
+      },
+      saveImage(id) {
+        this.imageFull.id = id === '' ? Date.now() : id;
+        this.showReadyImg = true;
+        this.$emit('post', this.imageFull)
       },
       clearImageFull(){
         this.img = this.bgImage = false;
         this.uploadPhoto = false;
+        this.showReadyImg = false;
         this.imageFull = JSON.parse(JSON.stringify(defaultImageSettings));
       },
       getFilterObj(name, value, min, max, step) {
         return { name, value, min, max, step };
       },
+      closePhotoUpload() {
+        if (!this.imageFull.img){
+          this.deleteImageItem();
+          this.showReadyImg = false;
+          this.uploadPhoto = false;
+        } else {
+          this.showReadyImg = true;
+          this.uploadPhoto = true;
+        }
+      },
+      editImage(){
+        this.uploadPhoto = true;
+        this.showReadyImg = false;
+      },
+      getFullImage(){
+        this.imageFull = JSON.parse(this.image);
+        if (!this.imageFull.img){
+          this.showReadyImg = false;
+          this.uploadPhoto = false;
+        } else {
+          this.img = true;
+          this.bgImage = !this.imageFull.bgImage === '';
+          this.showReadyImg = true;
+          this.uploadPhoto = true;
+        }
+      }
     },
     mounted() {
       this.imageFilters.push(
@@ -180,14 +240,36 @@
         this.getFilterObj('Прозрачность:', 'opacity', '0', '1', '0.01')
       );
       this.moveFilters.push(
-        this.getFilterObj('Перемещение по x', 'positionX', '-50', '50', '1'),
-        this.getFilterObj('Перемещение по y', 'positionY', '-50', '50', '1')
+        this.getFilterObj('Перемещение по x', 'positionX', '0', '100', '1'),
+        this.getFilterObj('Перемещение по y', 'positionY', '0', '100', '1')
       );
+      this.getFullImage();
     },
+    watch: {
+      image() {
+        this.getFullImage();
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
+
+  .upload__photo {
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload__photo__wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 30;
+  }
+
   .upload__photo__button {
     border: 2px solid #21fb92;
     width: 100px;
@@ -198,36 +280,31 @@
     cursor: pointer;
   }
 
+  .close {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+  }
+
   .photo {
     width: 100%;
     min-width: 300px;
     max-width: 320px;
     min-height: 400px;
-    max-height: 600px;
+    max-height: 550px;
     height: 100%;
     top: 50%;
     left: 50%;
+    overflow: hidden;
     position: fixed;
     transform: translate(-50%, -50%);
     border-radius: 5px;
     border: 1px solid silver;
-    overflow: hidden;
-    background: #ffffff;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+    box-shadow: 0 0 26px rgba(0, 0, 0, 0.5);
+    z-index: 20;
 
-    &__layers {
-      width: 100%;
-      min-height: 200px;
-      max-height: 400px;
-      height: 16em;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    &__buttons {
+   &__buttons {
       height: 3em;
       padding: 5px;
       box-sizing: border-box;
@@ -299,6 +376,10 @@
         border-radius: 10px;
       }
     }
+  }
+
+  .image {
+    height: 100%;
   }
 </style>
 

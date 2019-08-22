@@ -44,6 +44,16 @@
 
 <style lang="scss" scoped>
   .photo__layers {
+      width: 100%;
+      min-height: 200px;
+      max-height: 600px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
     &__image, &__bgImage, &__bgColor {
       position: absolute;
       width: 100%;
@@ -52,10 +62,11 @@
     }
 
     &__image {
-      position: relative;
+      position: absolute;
+      transform: translate(-50%, -50%);
       z-index: -1;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: cover;
       background-position: center;
     }
 

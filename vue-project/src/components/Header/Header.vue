@@ -21,6 +21,6 @@
     color: #fff;
     font-family: "Comic Sans MS";
     border-bottom: 1px solid black;
-    z-index: 10;
+    z-index: 100;
   }
 </style>
