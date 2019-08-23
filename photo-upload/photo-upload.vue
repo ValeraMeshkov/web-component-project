@@ -43,6 +43,56 @@
           </li>
         </ul>
 
+        <div v-if="img" class="photo__filters__indent">
+          <h4>Отступы картинки</h4>
+          <input type="radio" id="one" value="percent" v-model="imageFull.indentIs">
+          <label for="one">%</label>
+
+          <input type="radio" id="two" value="pixel" v-model="imageFull.indentIs">
+          <label for="two">px</label>
+        </div>
+        <ul v-if="img && imageFull.indentIs === 'percent'" class="photo__filters__image move">
+          <li v-for="filter in indentFilters.percent" :key="filter.id">
+            <span>{{filter.name}}</span>
+            <div>
+              <FilterItem type="range"
+                          name="indentPercent"
+                          :values="filter"
+                          :initialValue="imageFull.indentPercent[filter.value]"
+                          @updateValue="updateValue"
+              />
+              <FilterItem class="move__item"
+                          type="number"
+                          name="indentPercent"
+                          :values="filter"
+                          :initialValue="imageFull.indentPercent[filter.value]"
+                          @updateValue="updateValue"
+              />
+            </div>
+          </li>
+        </ul>
+
+        <ul v-if="img && imageFull.indentIs === 'pixel'" class="photo__filters__image move">
+          <li v-for="filter in indentFilters.pixel" :key="filter.id">
+            <span>{{filter.name}}</span>
+            <div>
+              <FilterItem type="range"
+                          name="indentPixel"
+                          :values="filter"
+                          :initialValue="imageFull.indentPixel[filter.value]"
+                          @updateValue="updateValue"
+              />
+              <FilterItem class="move__item"
+                          type="number"
+                          name="indentPixel"
+                          :values="filter"
+                          :initialValue="imageFull.indentPixel[filter.value]"
+                          @updateValue="updateValue"
+              />
+            </div>
+          </li>
+        </ul>
+
         <h4 v-if="img">Перемещение картинки</h4>
         <ul v-if="img" class="photo__filters__image move">
           <li v-for="filter in moveFilters" :key="filter.id">
@@ -125,7 +175,15 @@
       contrast: 1,
       brightness: 1,
       saturate: 1,
-      sizeImg: 100
+    },
+    indentIs: 'percent',
+    indentPercent: {
+        sizeImgX: 5,
+        sizeImgY: 5,
+    },
+    indentPixel: {
+        sizeImgX: 5,
+        sizeImgY: 5,
     },
     move: {
       positionX: 50,
@@ -157,7 +215,11 @@
         showReadyImg: false,
         imageFilters: [],
         moveFilters: [],
-        shadowFilters: []
+        shadowFilters: [],
+        indentFilters: {
+          percent: [],
+          pixel: []
+        },
       }
     },
     methods: {
@@ -232,16 +294,23 @@
         this.getFilterObj('Размытие', 'blur', '0', '5', '1'),
         this.getFilterObj('Контраст', 'contrast', '1', '3', '0.1'),
         this.getFilterObj('Яркость', 'brightness', '1', '5', '0.1'),
-        this.getFilterObj('Насыщенность', 'saturate', '0', '10', '0.1'),
-        this.getFilterObj('Масштаб', 'sizeImg', '20', '300', '1')
+        this.getFilterObj('Насыщенность', 'saturate', '0', '10', '0.1')
+      );
+      this.indentFilters.percent.push(
+        this.getFilterObj('Отступы X %', 'sizeImgX', '-100', '100', '1'),
+        this.getFilterObj('Отступы Y %', 'sizeImgY', '-100', '100', '1')
+      );
+      this.indentFilters.pixel.push(
+        this.getFilterObj('Отступы X px', 'sizeImgX', '-400', '400', '1'),
+        this.getFilterObj('Отступы Y px', 'sizeImgY', '-400', '400', '1')
       );
       this.shadowFilters.push(
         this.getFilterObj('Высота:', 'height', '0', '300', '1'),
         this.getFilterObj('Прозрачность:', 'opacity', '0', '1', '0.01')
       );
       this.moveFilters.push(
-        this.getFilterObj('Перемещение по x', 'positionX', '0', '100', '1'),
-        this.getFilterObj('Перемещение по y', 'positionY', '0', '100', '1')
+        this.getFilterObj('Перемещение по x', 'positionX', '-50', '150', '1'),
+        this.getFilterObj('Перемещение по y', 'positionY', '-50', '150', '1')
       );
       this.getFullImage();
     },
@@ -348,6 +417,16 @@
 
       h4 {
         margin: 10px auto 5px;
+      }
+
+      &__indent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h4 {
+          margin: 5px 10px 5px 0;
+        }
       }
 
       .move {

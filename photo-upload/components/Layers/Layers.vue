@@ -10,10 +10,12 @@
          :style="{
              backgroundImage: `url(${image.img})`,
              opacity: image.filter.opacity,
-             minWidth: `${image.filter.sizeImg}%`,
-             minHeight: `${image.filter.sizeImg}%`,
-             width: `${image.filter.sizeImg}%`,
-             height: `${image.filter.sizeImg}%`,
+             width: image.indentIs === 'percent'
+                ? `calc(100% - ${image.indentPercent.sizeImgX}%)`
+                : `calc(100% - ${image.indentPixel.sizeImgX}px)`,
+             height: image.indentIs === 'percent'
+                ? `calc(100% - ${image.indentPercent.sizeImgY}%)`
+                : `calc(100% - ${image.indentPixel.sizeImgY}px)`,
              left: `${image.move.positionX}%`,
              top: `${image.move.positionY}%`,
              filter: `
